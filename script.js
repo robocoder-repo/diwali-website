@@ -130,7 +130,36 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// Other functions remain the same
+function createParticles(x, y, color) {
+    for (let i = 0; i < 30; i++) {
+        particles.push(new Particle(x, y, color));
+    }
+}
+
+// Sound effect
+const audio = new Audio('https://www.soundjay.com/mechanical/sounds/firework-explosion-1.mp3');
+
+function playSound() {
+    audio.currentTime = 0;
+    audio.play();
+}
+
+// Create fireworks on click
+fireworksCanvas.addEventListener('click', (e) => {
+    fireworks.push(new Firework(e.clientX, e.clientY));
+});
+
+// Toggle sound
+const soundToggle = document.getElementById('sound-toggle');
+soundToggle.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔇 Sound Off';
+});
+
+// Create diyas
+for (let i = 0; i < 10; i++) {
+    diyas.push(new Diya());
+}
 
 // Countdown timer
 const countdownElement = document.getElementById('countdown');
