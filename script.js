@@ -15,7 +15,81 @@ const diyas = [];
 
 let soundEnabled = false;
 
-// Firework, Particle, and Diya classes remain the same
+// Firework class
+class Firework {
+    constructor(x, y) {
+        this.x = x || Math.random() * fireworksCanvas.width;
+        this.y = y || fireworksCanvas.height;
+        this.sx = Math.random() * 3 - 1.5;
+        this.sy = Math.random() * -3 - 3;
+        this.size = 2;
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    }
+
+    update() {
+        this.x += this.sx;
+        this.y += this.sy;
+        if (this.size > 0.1) this.size -= 0.1;
+    }
+
+    draw(ctx) {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Particle class
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 2 - 1;
+        this.speedY = Math.random() * 2 - 1;
+        this.color = color;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.size > 0.1) this.size -= 0.1;
+    }
+
+    draw(ctx) {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Diya class
+class Diya {
+    constructor() {
+        this.x = Math.random() * fireworksCanvas.width;
+        this.y = Math.random() * fireworksCanvas.height;
+        this.size = 5;
+        this.angle = 0;
+    }
+
+    update() {
+        this.angle += 0.02;
+        this.y += Math.sin(this.angle) * 0.5;
+    }
+
+    draw(ctx) {
+        ctx.fillStyle = '#FFA500';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#FF4500';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
 
 // Animation loop
 function animate() {
